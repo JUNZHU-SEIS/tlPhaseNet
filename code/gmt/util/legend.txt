@@ -1,0 +1,3 @@
+# symbols
+S 0.25c c 0.3c #5A6BB8 0.25p,#5A6BB8 0.8c blast
+S 0.25c c 0.3c #E05042 0.25p,#E05042 0.8c quake 
