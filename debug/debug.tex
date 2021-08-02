@@ -1,0 +1,143 @@
+\documentclass{article}
+\title{\textbf{Debug history}}
+\author{\textbf{Jun ZHU}}
+%\date{March 25, 2021}
+\usepackage[normalem]{ulem}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+\usepackage{graphicx}
+
+\usepackage{float}
+\graphicspath{{image/}}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\usepackage{listings}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\begin{document}
+\maketitle
+\section{2021/07/08}
+\par{\textbf{project description:}}
+\begin{itemize}
+  \item phase picking file path: /home/as/Data/tlPhasenet/eqphas/2014\_out\_dist400.txt.ok4Li
+  \item phase picking file: \# \$(origin time in UTC+8 \ldots) \{\$(station code + network code) \ldots \ldots \$(phase name)   \ldots \$(pick time in UTC+8) \ldots \ldots \$(channel code)\}
+  \item waveform file path: /home/as/Data/tlPhasenet/xichang/20140102.002.155020.650/SC.GZA\ldots
+  \item 29497 files span from Jan 2014 to Dec 2019
+  \item target input file format: csv
+  \item target imput file example: fname,itp,its,channels \{\$(npzfile name),\$(location of P-),\$(location of S-),\$(involved channel(s), like EHE\_EHN\_EHZ)\}
+\end{itemize}
+
+\par{\textbf{preprocess description:}}
+\begin{itemize}
+  \item remove empty folders inside /home/as/Data/tlPhasenet/xichang/
+  \item \textcolor{red}{only the phase picking record involving both P- and S- picks reserved}
+  \item \textit {discard the repeating P- and S- picks}
+  \item \textit {some stream are not identically long in terms of each trace} (common segment of 3-components)
+  \item \textit {some picks repeat in the file, just conserve the first record, use the shell script named \textbf{removerepeat.sh}}
+  \item \textit {some picks have over 3 traces in the folder, such as oritention code 000, 001, etc. What's worse, their sample rates are not the same. I just ignore them.}
+  \item {some picks are not involved in the 90-second training waveform segment, some are not involved in the 30-second test waveform segment. I just use the recording which involves both P- and S- picks in both train \& test segment.}
+  \item \underline {\textcolor{red}{screen the picks \& divide the datasets based on the seismic events}}
+  \item \underline {\textcolor{red}{filter the waveform (the approach adopted by Chenping Chai et al.)}}
+\end{itemize}
+
+\par{\textbf{preprocess result overview: \sout{54993} 52977 recordings (17919 events) left}}\\
+a sample waveform
+\begin{figure}[H]
+  \centering
+  \includegraphics{samplewaveform.png}
+%  \caption{}
+  \label{samplewaveform}
+\end{figure}
+
+
+\section{2021/07/12}
+\par{fix the problem of preprocessing: can't cast dtype('float32') to dtype('int32')}
+\begin{lstlisting}
+def normaliz(self, data):
+	data = data - np.mean(data, axis=0, keepdims=True)
+	# omit below
+	return
+\end{lstlisting}
+
+
+\section{2021/07/15}
+\par{evaluation metrics:}
+\begin{itemize}
+  \item peak probabilities above 0.5 should be counted as positive picks
+  \item $\Delta t<0.1$s is true positives, picks with larger residuals are counted as false positives
+  \item mean and standard deviation are calculated on residuals ($\Delta t<0.5s$)
+  \item precision; recall; F1; mean; standard deviation
+\end{itemize}
+
+\par{PhaseNet configuration:}
+\begin{itemize}
+  \item 779514 recordings
+  \item different types of instruments; a wide range of SNR
+  \item 30-s time window; 3001 points
+  \item \textcolor{red}{varied position of the arrivals within the window}
+  \item \textcolor{red}{100 Hz}
+  \item remove mean and divide by std
+\end{itemize}
+
+\section{2021/07/16}
+\par{\textcolor{red}{Whether or not keep the recordings whose S- pick is outside the window?} No.}
+\par{How to freeze and load model in tensoeflow? see \href{https://blog.metaflow.fr/tensorflow-how-to-freeze-a-model-and-serve-it-with-a-python-api-d4f3596b3adc}{blog} here.}
+\section{2021/07/21}
+\par{Train history of the re-train PhaseNet:}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.8]{retrainLoss.png}
+  \caption{re-train model}
+  \label{fig:<+label+>}
+\end{figure}
+
+\par{Train history of the raw PhaseNet:}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.8]{rawLoss.png}
+  \caption{raw model}
+  \label{fig:<+label+>}
+\end{figure}
+
+\par{For pretrain model, its loss rises unexpectedly. It could be attributed to the utilization of the high learning rate. No improvement is observed even though modifying the learning rate.}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.8]{pretrainLoss.png}
+  \caption{pretrain model}
+  \label{fig:<+label+>}
+\end{figure}
+
+\section{2021/07/29}
+\par{Some problems of the pick:}
+\begin{itemize}
+  \item Some P- picks are mistaken as S- picks. \textbf{GZ WNT 20140502111205}
+\end{itemize}
+\section{Reference}
+
+
+\end{document}
