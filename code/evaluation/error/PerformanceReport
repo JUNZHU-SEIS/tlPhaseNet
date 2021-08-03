@@ -1,130 +1,130 @@
-14999 test recordings
+10597 test recordings
 
 
 Use residual <= 0 sample points as the TP (True Positives)
-error_p_pretrain,1021
-error_p_raw,1067
-error_p_retrain,1170
-error_s_pretrain,301
-error_s_raw,312
-error_s_retrain,381
+error_p_pretrain,194
+error_p_raw,346
+error_p_retrain,196
+error_s_pretrain,87
+error_s_raw,87
+error_s_retrain,225
 
 Use residual <= 1 sample points as the TP (True Positives)
-error_p_pretrain,2200
-error_p_raw,2630
-error_p_retrain,3092
-error_s_pretrain,915
-error_s_raw,956
-error_s_retrain,1060
+error_p_pretrain,581
+error_p_raw,675
+error_p_retrain,923
+error_s_pretrain,304
+error_s_raw,305
+error_s_retrain,593
 
 Use residual <= 2 sample points as the TP (True Positives)
-error_p_pretrain,3256
-error_p_raw,3595
-error_p_retrain,3571
-error_s_pretrain,1509
-error_s_raw,1580
-error_s_retrain,1738
+error_p_pretrain,1193
+error_p_raw,1458
+error_p_retrain,1657
+error_s_pretrain,512
+error_s_raw,543
+error_s_retrain,971
 
 Use residual <= 3 sample points as the TP (True Positives)
-error_p_pretrain,4563
-error_p_raw,5224
-error_p_retrain,6572
-error_s_pretrain,2085
-error_s_raw,2204
-error_s_retrain,2363
+error_p_pretrain,2121
+error_p_raw,2254
+error_p_retrain,2192
+error_s_pretrain,769
+error_s_raw,793
+error_s_retrain,1334
 
 Use residual <= 4 sample points as the TP (True Positives)
-error_p_pretrain,6190
-error_p_raw,6516
-error_p_retrain,6989
-error_s_pretrain,2700
-error_s_raw,2812
-error_s_retrain,2951
+error_p_pretrain,2419
+error_p_raw,2819
+error_p_retrain,2736
+error_s_pretrain,1045
+error_s_raw,1057
+error_s_retrain,1677
 
 Use residual <= 5 sample points as the TP (True Positives)
-error_p_pretrain,6582
-error_p_raw,7170
-error_p_retrain,7907
-error_s_pretrain,3263
-error_s_raw,3353
-error_s_retrain,3511
+error_p_pretrain,2786
+error_p_raw,3167
+error_p_retrain,3573
+error_s_pretrain,1314
+error_s_raw,1292
+error_s_retrain,2009
 
 Use residual <= 6 sample points as the TP (True Positives)
-error_p_pretrain,7080
-error_p_raw,7537
-error_p_retrain,8099
-error_s_pretrain,3765
-error_s_raw,3878
-error_s_retrain,3963
+error_p_pretrain,3474
+error_p_raw,4007
+error_p_retrain,4229
+error_s_pretrain,1608
+error_s_raw,1545
+error_s_retrain,2322
 
 Use residual <= 7 sample points as the TP (True Positives)
-error_p_pretrain,7516
-error_p_raw,8172
-error_p_retrain,8612
-error_s_pretrain,4226
-error_s_raw,4329
-error_s_retrain,4365
+error_p_pretrain,4306
+error_p_raw,4612
+error_p_retrain,4930
+error_s_pretrain,1896
+error_s_raw,1799
+error_s_retrain,2628
 
 Use residual <= 8 sample points as the TP (True Positives)
-error_p_pretrain,8208
-error_p_raw,8668
-error_p_retrain,8845
-error_s_pretrain,4606
-error_s_raw,4718
-error_s_retrain,4689
+error_p_pretrain,4515
+error_p_raw,4959
+error_p_retrain,5295
+error_s_pretrain,2170
+error_s_raw,2021
+error_s_retrain,2892
 
 Use residual <= 9 sample points as the TP (True Positives)
-error_p_pretrain,8371
-error_p_raw,8911
-error_p_retrain,9214
-error_s_pretrain,4921
-error_s_raw,5074
-error_s_retrain,4983
+error_p_pretrain,4768
+error_p_raw,5154
+error_p_retrain,5781
+error_s_pretrain,2385
+error_s_raw,2225
+error_s_retrain,3161
 
 Use residual <= 10 sample points as the TP (True Positives)
-error_p_pretrain,8581
-error_p_raw,9037
-error_p_retrain,9312
-error_s_pretrain,5220
-error_s_raw,5354
-error_s_retrain,5220
+error_p_pretrain,5153
+error_p_raw,5577
+error_p_retrain,6047
+error_s_pretrain,2627
+error_s_raw,2445
+error_s_retrain,3382
 
 Use residual <= 15 sample points as the TP (True Positives)
-error_p_pretrain,9649
-error_p_raw,10358
-error_p_retrain,10160
-error_s_pretrain,6392
-error_s_raw,6476
-error_s_retrain,6017
+error_p_pretrain,6256
+error_p_raw,6668
+error_p_retrain,6835
+error_s_pretrain,3530
+error_s_raw,3240
+error_s_retrain,4184
 
 Use residual <= 25 sample points as the TP (True Positives)
-error_p_pretrain,10666
-error_p_raw,11338
-error_p_retrain,10962
-error_s_pretrain,7650
-error_s_raw,7641
-error_s_retrain,6653
+error_p_pretrain,7448
+error_p_raw,7662
+error_p_retrain,7540
+error_s_pretrain,4715
+error_s_raw,4057
+error_s_retrain,4945
 
 Use residual <= 35 sample points as the TP (True Positives)
-error_p_pretrain,11134
-error_p_raw,11821
-error_p_retrain,11269
-error_s_pretrain,8276
-error_s_raw,8210
-error_s_retrain,6928
+error_p_pretrain,7958
+error_p_raw,8152
+error_p_retrain,7898
+error_s_pretrain,5401
+error_s_raw,4514
+error_s_retrain,5329
 
 Use residual <= 45 sample points as the TP (True Positives)
-error_p_pretrain,11525
-error_p_raw,12156
-error_p_retrain,11480
-error_s_pretrain,8654
-error_s_raw,8551
-error_s_retrain,7084
+error_p_pretrain,8260
+error_p_raw,8458
+error_p_retrain,8082
+error_s_pretrain,5871
+error_s_raw,4780
+error_s_retrain,5535
 
 Use residual <= 50 sample points as the TP (True Positives)
-error_p_pretrain,11652
-error_p_raw,12254
-error_p_retrain,11533
-error_s_pretrain,8771
-error_s_raw,8650
-error_s_retrain,7128
+error_p_pretrain,8390
+error_p_raw,8568
+error_p_retrain,8158
+error_s_pretrain,6019
+error_s_raw,4873
+error_s_retrain,5615

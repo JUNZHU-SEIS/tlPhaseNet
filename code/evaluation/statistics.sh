@@ -13,7 +13,7 @@ TPERROR=10 # True Positives
 
 
 DIR=/home/as/Work/tlPhasenet/output
-GROUNDTRUTH=$DIR/testlog.csv
+GROUNDTRUTH=$DIR/test.csv
 PREDICTION=$DIR/prediction
 RAW=$PREDICTION/raw/picks.csv
 RAWCOMPARISON=$PREDICTION/raw/result.csv
@@ -94,18 +94,18 @@ gmt begin $Error png
 		gmt subplot set 0,0
 			gmt basemap -R$RANGE -Bxaf+l"Error"+u" pts" -Byaf+l"Counts" -BWSen+t"Distribution of P Pick Error"+glightgray
 			gmt plot lines.dat -Ggray@25 -L
-			gmt histogram error_p_pretrain -T$BIN -i0 -Z0 -N2 -IO | gmt plot -l"pre-train" -W3p,$color_p_pretrain
-			gmt histogram error_p_raw -T$BIN -i0 -Z0 -N2 -IO | gmt plot -l"raw" -W3p,$color_p_raw
 			gmt histogram error_p_retrain -T$BIN -i0 -Z0 -N2 -IO | gmt plot -l"re-train" -W3p,$color_p_retrain
+			gmt histogram error_p_raw -T$BIN -i0 -Z0 -N2 -IO | gmt plot -l"raw" -W3p,$color_p_raw
+			gmt histogram error_p_pretrain -T$BIN -i0 -Z0 -N2 -IO | gmt plot -l"pre-train" -W3p,$color_p_pretrain
 #			gmt histogram error_p_retrain -T$BIN -i0 -Z0 -N2 -IO -R-20/20/0/5000 > distribution_error_p_retrain 
 #			gmt histogram error_p_raw -T$BIN -i0 -Z0 -N2 -IO -R-20/20/0/5000 > distribution_error_p_raw 
 #			gmt histogram error_p_pretrain -T$BIN -i0 -Z0 -N2 -IO -R-20/20/0/5000 > distribution_error_p_pretrain 
 		gmt subplot set 0,1
 			gmt basemap -R$RANGE -Bxaf+l"Error"+u" pts" -Byaf -BWSen+t"Distribution of S Pick Error"+glightgray
 			gmt plot lines.dat -Ggray@25 -L
-			gmt histogram error_s_pretrain -T$BIN -i0 -Z0 -N2 -IO | gmt plot -l"pre-train" -W3p,$color_s_pretrain
-			gmt histogram error_s_raw -T$BIN -i0 -Z0 -N2 -IO | gmt plot -l"raw" -W3p,$color_s_raw
 			gmt histogram error_s_retrain -T$BIN -i0 -Z0 -N2 -IO | gmt plot -l"re-train" -W3p,$color_s_retrain
+			gmt histogram error_s_raw -T$BIN -i0 -Z0 -N2 -IO | gmt plot -l"raw" -W3p,$color_s_raw
+			gmt histogram error_s_pretrain -T$BIN -i0 -Z0 -N2 -IO | gmt plot -l"pre-train" -W3p,$color_s_pretrain
 #			gmt histogram error_s_retrain -T$BIN -i0 -Z0 -N2 -IO -R-20/20/0/5000 
 	gmt subplot end
 gmt end show
