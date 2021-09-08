@@ -38,7 +38,7 @@ def crop_only(net1, net2):
   return net2_resize
 
 class Model:
-  def __init__(self, config, input_batch=None, mode='train', iftransfer=True):
+  def __init__(self, config, input_batch=None, mode='train'):
     self.depths = config.depths
     self.filters_root = config.filters_root
     self.kernel_size = config.kernel_size
@@ -60,13 +60,11 @@ class Model:
     self.global_step = tf.compat.v1.get_variable(name="global_step", initializer=0, dtype=tf.int32)
     self.summary_train = []
     self.summary_valid = []
-    self.trainable = (not iftransfer)
 
     self.build(input_batch, mode=mode)
 
   def add_placeholders(self, input_batch=None, mode="train"):
     if input_batch is None:
-      print(1, "       \n-------------\n")
       self.X = tf.compat.v1.placeholder(dtype=tf.float32, shape=[None, self.X_shape[0], self.X_shape[1], self.X_shape[2]], name='X')
       self.Y = tf.compat.v1.placeholder(dtype=tf.float32, shape=[None, self.Y_shape[0], self.Y_shape[1], self.n_class], name='y')
     else:
@@ -113,12 +111,10 @@ class Model:
                    kernel_initializer=self.initializer,
                    kernel_regularizer=self.regularizer,
                    #bias_regularizer=self.regularizer,
-                   name="input_conv",
-				   trainable=self.trainable)
+                   name="input_conv")
       net = tf.compat.v1.layers.batch_normalization(net,
                         training=self.is_training,
-                        name="input_bn",
-						trainable=self.trainable)
+                        name="input_bn")
       net = tf.nn.relu(net,
                name="input_relu")
       # net = tf.nn.dropout(net, self.keep_prob)
@@ -142,12 +138,10 @@ class Model:
                      kernel_initializer=self.initializer,
                      kernel_regularizer=self.regularizer,
                      #bias_regularizer=self.regularizer,
-                     name="down_conv1_{}".format(depth + 1),
-                     trainable=self.trainable)
+                     name="down_conv1_{}".format(depth + 1))
         net = tf.compat.v1.layers.batch_normalization(net,
                           training=self.is_training,
-                          name="down_bn1_{}".format(depth + 1),
-                          trainable=self.trainable)
+                          name="down_bn1_{}".format(depth + 1))
         net = tf.nn.relu(net,
                  name="down_relu1_{}".format(depth+1))
         net = tf.compat.v1.layers.dropout(net,
@@ -169,12 +163,10 @@ class Model:
                        kernel_initializer=self.initializer,
                        kernel_regularizer=self.regularizer,
                        #bias_regularizer=self.regularizer,
-                       name="down_conv3_{}".format(depth + 1),
-                       trainable=self.trainable)
+                       name="down_conv3_{}".format(depth + 1))
           net = tf.compat.v1.layers.batch_normalization(net,
                             training=self.is_training,
-                            name="down_bn3_{}".format(depth + 1),
-							trainable=self.trainable)
+                            name="down_bn3_{}".format(depth + 1))
           net = tf.nn.relu(net,
                    name="down_relu3_{}".format(depth+1))
           net = tf.compat.v1.layers.dropout(net,
@@ -197,12 +189,10 @@ class Model:
                          kernel_initializer=self.initializer,
                          kernel_regularizer=self.regularizer,
                          #bias_regularizer=self.regularizer,
-                         name="up_conv0_{}".format(depth+1),
-                         trainable=self.trainable)
+                         name="up_conv0_{}".format(depth+1))
         net = tf.compat.v1.layers.batch_normalization(net,
                           training=self.is_training,
-                          name="up_bn0_{}".format(depth + 1),
-                          trainable=self.trainable)
+                          name="up_bn0_{}".format(depth + 1))
         net = tf.nn.relu(net,
                  name="up_relu0_{}".format(depth+1))
         net = tf.compat.v1.layers.dropout(net,
@@ -225,12 +215,10 @@ class Model:
                      kernel_initializer=self.initializer,
                      kernel_regularizer=self.regularizer,
                      #bias_regularizer=self.regularizer,
-                     name="up_conv1_{}".format(depth + 1),
-                     trainable=self.trainable)
+                     name="up_conv1_{}".format(depth + 1))
         net = tf.compat.v1.layers.batch_normalization(net,
                           training=self.is_training,
-                          name="up_bn1_{}".format(depth + 1),
-                          trainable=self.trainable)
+                          name="up_bn1_{}".format(depth + 1))
         net = tf.nn.relu(net,
                  name="up_relu1_{}".format(depth + 1))
         net = tf.compat.v1.layers.dropout(net,
@@ -251,17 +239,17 @@ class Model:
                    kernel_regularizer=self.regularizer,
                    #bias_regularizer=self.regularizer,
                    name="output_conv")
-      output = net
       # net = tf.nn.relu(net,
-      #                  name="output_relu")
-      # net = tf.compat.v1.layers.dropout(net,
-      #                                   rate=self.drop_rate,
-      #                                   training=self.is_training,
-      #                                   name="output_dropout")
-      # net = tf.compat.v1.layers.batch_normalization(net,
-      #                                               training=self.is_training,
-      #                                               name="output_bn")
-
+      #                     name="output_relu")
+      # net = tf.layers.dropout(net,
+      #                         rate=self.drop_rate,
+      #                         training=self.is_training,
+      #                         name="output_dropout")
+      # net = tf.layers.batch_normalization(net,
+      #                                    training=self.is_training,
+      #                                    name="output_bn")
+      output = net
+     
     with tf.compat.v1.variable_scope("representation"):
       self.representation = convs[-1]
 
