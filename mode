@@ -1,0 +1,35 @@
+-------------------------------------------------train-----------------------------------------------
+
+
+python run.py --mode=train --log_dir=log/retrain --train_dir=dataset/waveform_train --train_list=dataset/train.csv --valid_dir=dataset/waveform_train --valid_list=dataset/valid.csv --batch_size=20 --epochs=10 # re-train
+python run.py --mode=train --log_dir=log/pretrain --model_dir=model/190703-214543 --train_dir=dataset/waveform_train --train_list=dataset/train.csv --valid_dir=dataset/waveform_train --valid_list=dataset/valid.csv --batch_size=20 --learning_rate=0.1 --epochs=10 # pre-train
+python run.py --mode=train --log_dir=log/pretrain --model_dir=model/190703-214543 --train_dir=dataset/waveform_train --train_list=dataset/train.csv --valid_dir=dataset/waveform_train --valid_list=dataset/valid.csv --batch_size=20 --learning_rate=0.01 --epochs=10 # pre-train
+python run.py --mode=train --log_dir=log/pretrain --model_dir=model/190703-214543 --train_dir=dataset/waveform_train --train_list=dataset/train.csv --valid_dir=dataset/waveform_train --valid_list=dataset/valid.csv --batch_size=20 --learning_rate=0.001 --epochs=10 # pre-train
+python run.py --mode=train --log_dir=log/pretrain --model_dir=model/190703-214543 --train_dir=dataset/waveform_train --train_list=dataset/train.csv --valid_dir=dataset/waveform_train --valid_list=dataset/valid.csv --batch_size=20 --learning_rate=0.0001 --epochs=10 # pre-train
+python run.py --mode=train --log_dir=log/pretrain --model_dir=model/190703-214543 --train_dir=dataset/waveform_train --train_list=dataset/train.csv --valid_dir=dataset/waveform_train --valid_list=dataset/valid.csv --batch_size=20 --learning_rate=0.00001 --epochs=10 # pre-train
+python run.py --mode=train --log_dir=log/pretrain --model_dir=model/190703-214543 --train_dir=dataset/waveform_train --train_list=dataset/train.csv --valid_dir=dataset/waveform_train --valid_list=dataset/valid.csv --batch_size=20 --learning_rate=0.000001 --epoch=10 # pre-train
+python run.py --mode=train --log_dir=log/pretrain --model_dir=model/190703-214543 --train_dir=dataset/waveform_train --train_list=dataset/train.csv --valid_dir=dataset/waveform_train --valid_list=dataset/valid.csv --batch_size=20 --learning_rate=0.0000001 --epoch=10 # pre-train
+
+
+-------------------------------------------------valid-----------------------------------------------
+
+
+python run.py --mode=valid --model_dir=model/190703-214543 --data_dir=dataset/waveform_train --data_list=dataset/test90.csv --plot_figure --save_result --batch_size=20 # raw
+python run.py --mode=valid --model_dir=log/retrain/e10b20 --data_dir=dataset/waveform_train --data_list=dataset/test90.csv --plot_figure --save_result --batch_size=20 # re-train
+python run.py --mode=valid --model_dir=log/pretrain/e10b20lr1 --data_dir=dataset/waveform_train --data_list=dataset/test90.csv --plot_figure --save_result --batch_size=20 # pre-train
+
+
+-------------------------------------------------pred------------------------------------------------
+
+
+python run.py --mode=pred --output_dir=output/raw --model_dir=model/190703-214543 --data_dir=dataset/waveform_pred --data_list=dataset/pred.csv --output_dir=output/raw --batch_size=512 --tp_prob=0.3 --ts_prob=0.3 # raw
+python run.py --mode=pred --output_dir=output/retrain --model_dir=log/retrain/ --data_dir=dataset/waveform_pred --data_list=dataset/pred.csv --output_dir=output/retrain --batch_size=512 --tp_prob=0.3 --ts_prob=0.3 # re-train
+python run.py --mode=pred --output_dir=output/pretrain --model_dir=log/pretrain/ --data_dir=dataset/waveform_pred --data_list=dataset/pred.csv --output_dir=output/pretrain --batch_size=512 --tp_prob=0.3 --ts_prob=0.3 # pre-train
+
+
+-------------------------------------------------pred: plot & save result----------------------------
+
+
+python run.py --mode=pred --model_dir=model/190703-214543 --data_dir=/media/as/Elements/连续波形 --data_list=/media/as/Elements/flist --output_dir=Huoshan --batch_size=128 --tp_prob=0.3 --ts_prob=0.3 --plot_figure --save_result # raw
+python run.py --mode=pred --model_dir=log/retrain/e10b20 --data_dir=dataset/waveform_pred --data_list=dataset/pred.csv --output_dir=output/retrain --batch_size=512 --tp_prob=0.3 --ts_prob=0.3 --plot_figure --save_result # re-train
+python run.py --mode=pred --model_dir=log/pretrain/e10b20lr1 --data_dir=dataset/waveform_pred --data_list=dataset/pred.csv --output_dir=output/pretrain --batch_size=512 --tp_prob=0.3 --ts_prob=0.3 --plot_figure --save_result # pre-train
